@@ -1,0 +1,17 @@
+
+
+################### Rotas para o modelo DummyClass ###############
+
+Route::group(['namespace' => 'DummyNamespace\\', 'prefix' => 'v1'], function () {
+    $prefix_controller = "DummyClassApi";
+    Route::prefix('DummyPrefix')->group(function () use($prefix_controller) {
+        Route::get('/',         $prefix_controller . '@getPagination');        
+        Route::get('/getAll',   $prefix_controller . '@getAll');        
+        Route::get('/{id}',     $prefix_controller . '@get');
+        Route::post('/',        $prefix_controller . '@create');
+        Route::put('/{id}',     $prefix_controller . '@update');
+        Route::delete('/{id}',  $prefix_controller . '@delete');
+    });
+});
+
+
