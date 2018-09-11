@@ -6,6 +6,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Validator;
 use \App\Dominio\Contest\ContestServico;
 
+
 class ContestApi extends Controller {
 
     public function __construct() {
@@ -69,6 +70,22 @@ class ContestApi extends Controller {
         
         $x = ContestServico::getLotteries($request->id);        
         return response()->json(["data" => $x], 200);  
+    }
+
+    public function getRecords(Request $request) {
+        $roles = [
+            'id' => 'required|numeric|exists:contests,id',            
+            'user_id' => 'numeric|exists:users,id'
+        ];
+        $this->validator($request->all(), $roles)->validate();
+        $qtd  = ($request->qtd)? $request->qtd : 15;
+        $page = ($request->page)? $request->page : 1 ;
+        Paginator::currentPageResolver(function () use ($page) {
+            return $page;
+        });
+        $x = ContestServico::getRecords($request);    
+        $x = $x->appends(['qtd'=>$request->qtd]);     
+        return response()->json( $x, 200);  
     }
 
     public function create(Request $request) {

@@ -2,7 +2,9 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Routing\Controller;
-
+use Illuminate\Support\Facades\Auth;
+use App\Dominio\Record\Record;
+use App\Dominio\User\User;
 class ContestServico extends Controller {
 
     function __construct() {
@@ -25,6 +27,22 @@ class ContestServico extends Controller {
         $x = Contest::where("id", $id)->first();
        
         return $x->lotterys()->orderBy('name', "ASC")->get();
+    }
+
+    public static function getRecords($request) {
+        $x = Contest::where("id", $request->id)->first();
+        if(!isset($request->user_id)){
+            if (Auth::user()){
+               $user = Auth::user();
+            }else{
+                return 1;
+            }
+        }else{
+            $user = User::find($request->user_id);
+        }
+        $arrayIds = $x->lotterys()->pluck('id')->toArray();
+        return Record::whereIn('lottery_id',$arrayIds)->where('user_id',$user->id)->orderBy('created_at', "DESC")->paginate($request->qtd);
+        
     }
 
     public static function getPagination($qtd) {

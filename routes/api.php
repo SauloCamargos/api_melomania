@@ -130,6 +130,7 @@ Route::group(['namespace' => 'App\Dominio\Contest\\', 'prefix' => 'v1'], functio
         Route::get('/getUpcoming',   $prefix_controller . '@getUpcoming');        
         Route::get('/{id}/lotteries', $prefix_controller.'@getLotteries');
         Route::get('/{id}',     $prefix_controller . '@get');
+        Route::post('/records', $prefix_controller.'@getRecords');
         Route::post('/{id}/lotteries', $prefix_controller.'@addLottery');
         Route::post('/',        $prefix_controller . '@create');
         Route::put('/{id}',     $prefix_controller . '@update');

@@ -18,6 +18,7 @@ class CreateRecordsTable extends Migration
             $table->unsignedInteger('lottery_id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('order_id');
+            $table->longText('image');
             $table->text('numbers');
             $table->double('price', 12, 2);
             $table->double('admin_tax', 12, 2);

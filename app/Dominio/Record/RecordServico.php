@@ -63,6 +63,7 @@ class RecordServico extends Controller {
         $y->lottery_id  =   $request->lottery_id;
         $y->user_id     =   $request->user_id;
         $y->numbers     =   $request->numbers;
+        $y->image       =   $request->image;
         $y->price       =   $request->price;
         $y->admin_tax   =   $request->admin_tax;
         $y->order_id    =   $request->order_id;
